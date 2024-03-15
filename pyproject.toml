@@ -37,7 +37,7 @@ pythonpath = [
     "src",
 ]
 
-[project.entry-points]
+[tool.flit.entry-points]
 console_scripts = ["dibs-cli = dibs_cli.dibscli:main"]
 
 
