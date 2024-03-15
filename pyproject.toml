@@ -17,11 +17,14 @@ authors = [
 dependencies = [
     "tqdm",
     "typer",
-    "dibs_computing_core",
-    "dibs_datasource_csv",
-    "dibs_daten"
+    "dibs_computing_core@git+https://github.com/IWUGERMANY/DibsComputingCore",
+    "dibs_datasource_csv@git+https://github.com/IWUGERMANY/DibsDataSourceCSV",
+    "dibs_daten@git+https://github.com/IWUGERMANY/DibsData"
 
 ]
+
+
+
 
 keywords = ["Building", "Building-Stock", "Non-Domestic", "Non-Residential", "Operational", "Energy", "Greenhouse Gas", "Global Warming Potential", "Simulation", "Model", "Germany", "ISO 13790", "5R1C"]
 classifiers = [
@@ -33,6 +36,9 @@ classifiers = [
 pythonpath = [
     "src",
 ]
+
+[tool.flit.entry-points]
+console_scripts = ["dibs-cli = dibs_cli.dibscli:main"]
 
 
 addopts = [
