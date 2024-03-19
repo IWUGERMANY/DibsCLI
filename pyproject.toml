@@ -40,12 +40,14 @@ pythonpath = [
 #[tool.flit.entry-points]
 #console_scripts = ["dibs = dibs_cli.main:app"]
 
+
+
+#addopts = [
+#    "--import-mode=importlib",
+#]
+
 [project.scripts]
 dibs-cli = 'dibs_cli.main:app'
-
-addopts = [
-    "--import-mode=importlib",
-]
 
 
 [project.urls]
