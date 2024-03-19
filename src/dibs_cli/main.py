@@ -7,10 +7,10 @@ from dibs_computing_core.iso_simulator.dibs.dibs import DIBS
 from .dibscli_utils.validate_inputs import (
     check_the_file_given_by_the_user,
 )
-from dibscli_utils.save_results import convert_result_of_all_hours_to_dataframe, convert_end_result_to_dataframe, \
+from .dibscli_utils.save_results import convert_result_of_all_hours_to_dataframe, convert_end_result_to_dataframe, \
     save_results_of_all_buildings_hours_in_csv_parallel_using_thread_executor, \
     build_all_results_of_all_buildings_to_dataframe
-from dibscli_utils.validate_inputs import create_result_table, validate_weather_period, validate_usage_from_norm, \
+from .dibscli_utils.validate_inputs import create_result_table, validate_weather_period, validate_usage_from_norm, \
     validate_profile_from_norm, validate_gains_from_group_values
 from tqdm import tqdm
 
