@@ -4,7 +4,7 @@ import time
 from rich.console import Console
 from dibs_datasource_csv.datasource_csv import DataSourceCSV
 from dibs_computing_core.iso_simulator.dibs.dibs import DIBS
-from dibscli_utils.validate_inputs import (
+from .dibscli_utils.validate_inputs import (
     check_the_file_given_by_the_user,
 )
 from dibscli_utils.save_results import convert_result_of_all_hours_to_dataframe, convert_end_result_to_dataframe, \
