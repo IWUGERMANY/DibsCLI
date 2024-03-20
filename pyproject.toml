@@ -15,7 +15,6 @@ authors = [
 ]
 
 dependencies = [
-    "distutils",
     "rich",
     "tqdm",
     "typer",
@@ -24,9 +23,6 @@ dependencies = [
     "dibs_daten@git+https://github.com/IWUGERMANY/DibsData"
 
 ]
-
-
-
 
 keywords = ["Building", "Building-Stock", "Non-Domestic", "Non-Residential", "Operational", "Energy", "Greenhouse Gas", "Global Warming Potential", "Simulation", "Model", "Germany", "ISO 13790", "5R1C"]
 classifiers = [
@@ -47,6 +43,10 @@ dibs-cli = 'dibs_cli.main:app'
 Homepage = "https://github.com/IWUGERMANY/DIBS---Dynamic-ISO-Building-Simulator/tree/master"
 Documentation = "https://github.com/IWUGERMANY/DIBS---Dynamic-ISO-Building-Simulator/blob/master/doc/DIBS_documentation.pdf"
 Repository = "https://github.com/IWUGERMANY/DibsCLI"
+
+#[build-system]
+#requires = ["setuptools >= 50.0.0", "wheel"]
+#build-backend = "setuptools.build_meta"
 
 [tool.black]
 line-length = 88
