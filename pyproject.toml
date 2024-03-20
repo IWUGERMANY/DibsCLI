@@ -44,9 +44,9 @@ Homepage = "https://github.com/IWUGERMANY/DIBS---Dynamic-ISO-Building-Simulator/
 Documentation = "https://github.com/IWUGERMANY/DIBS---Dynamic-ISO-Building-Simulator/blob/master/doc/DIBS_documentation.pdf"
 Repository = "https://github.com/IWUGERMANY/DibsCLI"
 
-#[build-system]
-#requires = ["setuptools >= 50.0.0", "wheel"]
-#build-backend = "setuptools.build_meta"
+[build-system]
+requires = ["setuptools >= 50.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
 
 [tool.black]
 line-length = 88
