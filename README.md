@@ -119,20 +119,20 @@ To simulate this Building object, the CSV or Excel file must have the following 
 To simulate using default values for the optional arguments:
 
 ```bash
-python dibs_cli.py simulate-one-building /path/to/file.csv/or/to/file.csv
+dibs_cli simulate-one-building /path/to/file.csv/or/to/file.csv
 ```
 
 To simulate using custom values for all arguments:
 
 ```bash
-python dibs_cli.py simulate-one-building /path/to/file.csv/or/to/file.csv din18599 mid sia2024 2007-2021
+dibs_cli simulate-one-building /path/to/file.csv/or/to/file.csv --profile_from_norm din18599 --gains_from_group_values mid --usage_from_norm sia2024 --weather_period 2007-2021
 ```
 
 The below command will use the default values for `--profile_from_norm`, `--usage_from_norm`, and `--weather_period`, while using
 the provided value for `--gains_from_group_values`.
 
 ```bash
-python dibs_cli.py simulate-one-building /path/to/file.csv/or/to/file.csv --gains_from_group_values mid
+python dibs_cli simulate-one-building /path/to/file.csv/or/to/file.csv --gains_from_group_values mid
 ```
 
 ### Calling for Help
@@ -140,7 +140,7 @@ python dibs_cli.py simulate-one-building /path/to/file.csv/or/to/file.csv --gain
 To get help on the available commands and options, use the `--help` flag. For example:
 
 ```bash
-python dibs_cli.py --help
+dibs_cli --help
 ```
 
 This will display an overview of the available commands and their options.
