@@ -40,8 +40,6 @@ dibs-cli = 'dibs_cli.main:app'
 
 
 [project.urls]
-Homepage = "https://github.com/IWUGERMANY/DIBS---Dynamic-ISO-Building-Simulator/tree/master"
-Documentation = "https://github.com/IWUGERMANY/DIBS---Dynamic-ISO-Building-Simulator/blob/master/doc/DIBS_documentation.pdf"
 Repository = "https://github.com/IWUGERMANY/DibsCLI"
 
 [build-system]
