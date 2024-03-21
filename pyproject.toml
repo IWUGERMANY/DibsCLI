@@ -43,12 +43,8 @@ dibs-cli = 'dibs_cli.main:app'
 Repository = "https://github.com/IWUGERMANY/DibsCLI"
 
 [build-system]
-requires = ["setuptools >= 48.0.0", "wheel"]
-build-backend = "setuptools.build_meta"
-
-#[build-system]
-#requires = ["flit_core >=2"]
-#build-backend = "flit_core.buildapi"
+requires = ["flit_core >=2"]
+build-backend = "flit_core.buildapi"
 
 [tool.black]
 line-length = 88
