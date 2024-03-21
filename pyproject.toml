@@ -20,7 +20,7 @@ dependencies = [
     "typer",
     "dibs_computing_core@git+https://github.com/IWUGERMANY/DibsComputingCore",
     "dibs_datasource_csv@git+https://github.com/IWUGERMANY/DibsDataSourceCSV",
-    "dibs_daten@git+https://github.com/IWUGERMANY/DibsData"
+    "dibs_data@git+https://github.com/IWUGERMANY/DibsData"
 
 ]
 
