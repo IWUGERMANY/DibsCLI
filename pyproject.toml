@@ -18,9 +18,9 @@ dependencies = [
     "rich",
     "tqdm",
     "typer",
-    "dibs_computing_core@git+https://github.com/IWUGERMANY/DibsComputingCore",
-    "dibs_datasource_csv@git+https://github.com/IWUGERMANY/DibsDataSourceCSV",
-    "dibs_data@git+https://github.com/IWUGERMANY/DibsData"
+    "dibs_computing_core",
+    "dibs_datasource_csv",
+    "dibs_data"
 
 ]
 
