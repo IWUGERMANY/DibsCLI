@@ -22,19 +22,6 @@ The `simulate_all` command performs the simulation for multiple buildings. The b
 or Excel file and contain multiple records. Each record must match the same pattern and have the same number of
 attributes as a building object.
 
-### Arguments:
-
-- `path`: Path to the file containing building data type of `str`. (Required)
-- `ermi`: type of `str`. (Optional)
-- `gains_from_group_values`: type of `str`. (Optional)
-- `usage_from_norm`: type of `str`. (Optional)
-- `weather_period`: type of `str`. (Optional)
-
-### CSV File Format Requirements:
-
-- The CSV or Excel file must contain a specific number of columns.
-- The column names in the CSV or Excel file must match the attributes of the building object to be simulated.
-
 ### Example of Execution:
 
 To simulate using default values for the optional arguments:
