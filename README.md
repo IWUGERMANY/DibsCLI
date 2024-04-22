@@ -21,7 +21,7 @@ installed, you can download and install it from the official website: [Python.or
 
 #### Usage
 
-To execute the CLI, use the provided Python script `dibs_cli.py`. The program expects the path to the file containing
+To execute the CLI, use the provided Python script `dibs-cli.py`. The program expects the path to the file containing
 building data as the first argument. The remaining four arguments are optional and have default values. If the user only
 provides the path argument, the program will use default values for the other arguments. If the user provides all five
 arguments, the program will simulate using the user's input.
@@ -119,20 +119,20 @@ To simulate this Building object, the CSV or Excel file must have the following 
 To simulate using default values for the optional arguments:
 
 ```bash
-dibs_cli simulate-one-building /path/to/file.csv/or/to/file.csv
+dibs-cli simulate-one-building /path/to/file.csv/or/to/file.csv
 ```
 
 To simulate using custom values for all arguments:
 
 ```bash
-dibs_cli simulate-one-building /path/to/file.csv/or/to/file.csv --profile_from_norm din18599 --gains_from_group_values mid --usage_from_norm sia2024 --weather_period 2007-2021
+dibs-cli simulate-one-building /path/to/file.csv/or/to/file.csv --profile_from_norm din18599 --gains_from_group_values mid --usage_from_norm sia2024 --weather_period 2007-2021
 ```
 
 The below command will use the default values for `--profile_from_norm`, `--usage_from_norm`, and `--weather_period`, while using
 the provided value for `--gains_from_group_values`.
 
 ```bash
-python dibs_cli simulate-one-building /path/to/file.csv/or/to/file.csv --gains_from_group_values mid
+python dibs-cli simulate-one-building /path/to/file.csv/or/to/file.csv --gains_from_group_values mid
 ```
 
 ### Calling for Help
@@ -140,7 +140,7 @@ python dibs_cli simulate-one-building /path/to/file.csv/or/to/file.csv --gains_f
 To get help on the available commands and options, use the `--help` flag. For example:
 
 ```bash
-dibs_cli --help
+dibs-cli --help
 ```
 
 This will display an overview of the available commands and their options.
