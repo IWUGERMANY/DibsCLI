@@ -4,21 +4,6 @@ This Python program provides a command-line interface (CLI) for simulating build
 Excel file. The program offers two main commands (`simulate_one_building` and `simulate_all_building`) to simulate
 individual buildings or multiple buildings simultaneously.
 
-## Prerequisites
-
-Before running this program, ensure you have Python 3.10 or higher installed on your system. If Python is not already
-installed, you can download and install it from the official website: [Python.org](https://www.python.org/downloads/)
-
-### Installing Python
-
-1. Visit the [Python Downloads](https://www.python.org/downloads/) page.
-2. Choose the version appropriate for your operating system (Windows, macOS, or Linux) and click on the download link.
-3. Run the installer and follow the installation instructions.
-4. During the installation process, make sure to check the box that says "Add Python to PATH" or "Add Python to
-   environment variables" to ensure Python is added to your system PATH.
-5. Once the installation is complete, open a command prompt or terminal and type `python --version` to verify that
-   Python is installed correctly.
-
 #### Usage
 
 To execute the CLI, use the provided Python script `dibs-cli.py`. The program expects the path to the file containing
