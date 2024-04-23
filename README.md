@@ -43,6 +43,10 @@ the provided value for `--gains_from_group_values`.
 dibs-cli simulate-one-building /path/to/file.csv --gains_from_group_values mid
 ```
 
+## Further information
+
+For a detailed installation guide and further information on DIBS see the [wiki](https://github.com/IWUGERMANY/DibsCLI/wiki)
+
 ### Calling for Help
 
 To get help on the available commands and options, use the `--help` flag. For example:
