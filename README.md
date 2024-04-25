@@ -1,7 +1,5 @@
 # Building Simulation CLI
-This Python program provides a command-line interface (CLI) for simulating buildings based on data provided in a CSV or
-Excel file. The program offers two main commands (`simulate_one_building` and `simulate_all_building`) to simulate
-individual buildings or multiple buildings simultaneously.
+This Python program provides a command-line interface (CLI) for simulating buildings with the [Dynamic ISO Building Simulator (DIBS)](https://iwugermany.github.io/dibs/) based on data provided in a CSV or Excel file. The program offers two main commands (`simulate_one_building` and `simulate_all_building`) to simulate individual buildings or multiple buildings (buildings stocks) simultaneously.
 
 ## Installation
 To install the DIBS Command Line Interface (DibsCLI) use the following command:
