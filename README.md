@@ -1,11 +1,21 @@
 # Building Simulation CLI
-
 This Python program provides a command-line interface (CLI) for simulating buildings based on data provided in a CSV or
 Excel file. The program offers two main commands (`simulate_one_building` and `simulate_all_building`) to simulate
 individual buildings or multiple buildings simultaneously.
 
-#### Usage
+## Installation
+To install the DIBS Command Line Interface (DibsCLI) use the following command:
 
+```bash
+pip install dibs_cli
+```
+
+To use the full DIBS [model](https://iwugermany.github.io/dibs/overview) it is recomended to install 
+The [DibsCLI](https://github.com/IWUGERMANY/DibsCLI) package installs the full DIBS [model](https://iwugermany.github.io/dibs/overview) bundling the [DibsComputingCore](https://github.com/IWUGERMANY/DibsComputingCore), [DibsDataSourceCSV](https://github.com/IWUGERMANY/DibsDataSourceCSV) and the [DibsData](https://github.com/IWUGERMANY/DibsData). 
+
+
+
+## Usage
 To execute the CLI, use the provided Python script `dibs-cli.py`. The program expects the path to the file containing
 building data as the first argument. The remaining four arguments are optional and have default values. If the user only
 provides the path argument, the program will use default values for the other arguments. If the user provides all five
@@ -43,10 +53,6 @@ the provided value for `--gains_from_group_values`.
 dibs-cli simulate-one-building /path/to/file.csv --gains_from_group_values mid
 ```
 
-## Further information
-
-For a detailed installation guide and further information on DIBS see the [wiki](https://github.com/IWUGERMANY/DibsCLI/wiki)
-
 ### Calling for Help
 
 To get help on the available commands and options, use the `--help` flag. For example:
@@ -57,6 +63,33 @@ dibs-cli --help
 
 This will display an overview of the available commands and their options.
 
-## License
+## Further information
+For a detailed installation guide and further information on DIBS see the [wiki](https://github.com/IWUGERMANY/DibsCLI/wiki) and the [DIBS Project Page](https://iwugermany.github.io/dibs/).
 
+
+## License
 This program is licensed under the [MIT License](LICENSE). See the license file for more information.
+
+## Acknowledgement
+The Dynamic ISO Building Simulator has been developed in context of the 'ENOB:DataNWG Forschungsdatenbank Nichtwohngebäude' (www.datanwg.de) project and the project 'FlexGeber - Demonstration of flexibility options in the building sector and their integration with the energy system in Germany' at Institut Wohnen und Umwelt (IWU), Darmstadt. The preparation as the publication as a Python package on Pypi was undertaken within the EnOB:LezBAU projekt, where the DIBS model provides the basis for the calculation of the operational energy within the LezBAU web tool.
+<p float="left">
+  <img src="src/img/IWU_Logo.PNG" width="15%" /> 
+</p>  
+
+<b>ENOB:DataNWG<b>
+<b>Funding code:</b>  Fkz.: 03ET1315  
+<b>Project duration:</b>  01.12.2015 until 31.05.2021
+
+<b>FlexGeber<b>
+<b>Funding code:</b>  Fkz.: 03EGB0001  
+<b>Project duration:</b>  01.10.2017 until 31.07.2022
+
+<b>ENOB:LezBAU<b>
+<b>Funding code:</b>  Fkz.: 03EN1074A
+</br><b>Project duration:</b>  01.01.2023 until 31.12.2025
+  
+<b>All funded by:</b> 
+<p float="left">
+  <img src="src/img/BMWi_Logo.png" width="30%" /> 
+</p> 
+in accordance with the parliamentary resolution of the German Parliament.
