@@ -64,6 +64,12 @@ This will display an overview of the available commands and their options.
 ## Further information
 For a detailed installation guide and further information on DIBS see the [wiki](https://github.com/IWUGERMANY/DibsCLI/wiki) and the [DIBS Project Page](https://iwugermany.github.io/dibs/).
 
+## How to cite
+Please cite the Dynamic ISO Building Simulator (DIBS) as defined [here](https://iwugermany.github.io/dibs/contri).
+
+## Legacy
+The current Dynamic ISO Building Simulator (DIBS) is a PyPI package implementation of the initial [DIBS implementation](https://github.com/IWUGERMANY/DIBS---Dynamic-ISO-Building-Simulator) by Julian Bischof, Simon Knoll and Michael Hörner.
+
 
 ## License
 This program is licensed under the [MIT License](LICENSE). See the license file for more information.
