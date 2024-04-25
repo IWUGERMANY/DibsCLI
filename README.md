@@ -90,6 +90,6 @@ The Dynamic ISO Building Simulator has been developed in context of the 'ENOB:Da
   
 <b>All funded by:</b> 
 <p float="left">
-  <img src="src/img/BMWi_Logo.png" width="30%" /> 
+  <img src="https://github.com/IWUGERMANY/DibsComputingCore/blob/main/src/img/BMWi_Logo.png" width="30%" /> 
 </p> 
 in accordance with the parliamentary resolution of the German Parliament.
