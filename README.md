@@ -9,7 +9,7 @@ pip install dibs_cli
 ```
 
 To use the full DIBS [model](https://iwugermany.github.io/dibs/overview) it is recomended to install 
-The [DibsCLI](https://github.com/IWUGERMANY/DibsCLI) package installs the full DIBS [model](https://iwugermany.github.io/dibs/overview) bundling the [DibsComputingCore](https://github.com/IWUGERMANY/DibsComputingCore), [DibsDataSourceCSV](https://github.com/IWUGERMANY/DibsDataSourceCSV) and the [DibsData](https://github.com/IWUGERMANY/DibsData). 
+the [DibsCLI](https://github.com/IWUGERMANY/DibsCLI) package installs the full DIBS [model](https://iwugermany.github.io/dibs/overview) bundling the [DibsComputingCore](https://github.com/IWUGERMANY/DibsComputingCore), [DibsDataSourceCSV](https://github.com/IWUGERMANY/DibsDataSourceCSV) and the [DibsData](https://github.com/IWUGERMANY/DibsData). 
 
 
 
