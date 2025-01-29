@@ -1,51 +1,49 @@
+[build-system]
+requires = ["flit_core >=2"]
+build-backend = "flit_core.buildapi"
+
 [project]
 name = "dibs_cli"
-version = "1.0.1"
+version = "1.0.2"
 description = "DIBS---Dynamic-ISO-Building-Simulator command line interface (CLI): DIBS---Dynamic-ISO-Building-Simulator is a simulation program for calculating the space heating, occupancy hot water, cooling and electricity demand of German non-residential buildings. Further the DIBS calculates the heating value based energy uses, the primary energy and the greenhouse gas emission. The underlying resistance-capacity-model is based on the simplified hourly method of ISO 13790:2008."
 readme = "README.md"
 requires-python = ">=3.10.0"
-license = { file = "LICENSE" }
+license = {file = "LICENSE"}
 authors = [
-    { name = "Julian Bischof", email = "j.bischof@iwu.de" },
-    { name = "Simon Knoll" },
-    { name = "Michael Hörner" },
-    { name = "Wail Samjouni", email = "w.samjouni@iwu.de" },
-    { name = "André Müller", email = "a.mueller@iwu.de" },
-    { name = "Jens Calisti", email = "j.calisti@iwu.de" },
+  {name = "Julian Bischof", email = "j.bischof@iwu.de"},
+  {name = "Wail Samjouni", email = "w.samjouni@iwu.de"},
+  {name = "André Müller", email = "a.mueller@iwu.de"},
+  {name = "Jens Calisti", email = "j.calisti@iwu.de"},
+  {name = "Simon Knoll", email = "j.bischof@iwu.de"},
+  {name = "Michael Hörner", email = "j.bischof@iwu.de"}
 ]
-
 dependencies = [
-    "rich",
-    "tqdm",
-    "typer",
-    "dibs_computing_core",
-    "dibs_datasource_csv",
-    "dibs_data"
-
+  "rich",
+  "tqdm",
+  "typer",
+  "dibs_computing_core",
+  "git+https://github.com/IWUGERMANY/DibsData/tree/dibsdata101",
+  "git+https://github.com/IWUGERMANY/DibsDataSourceCSV/tree/dibsdatasourcecvs102"
+#  "dibs_datasource_csv",
+#  "dibs_data"
 ]
-
 keywords = ["Building", "Building-Stock", "Non-Domestic", "Non-Residential", "Operational", "Energy", "Greenhouse Gas", "Global Warming Potential", "Simulation", "Model", "Germany", "ISO 13790", "5R1C"]
 classifiers = [
-    "Development Status :: 4 - Beta",
-    "Programming Language :: Python"
-]
-
-[tool.pytest.ini_options]
-pythonpath = [
-    "src",
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python"
 ]
 
 [project.scripts]
 dibs-cli = 'dibs_cli.main:app'
 
-
 [project.urls]
 Repository = "https://github.com/IWUGERMANY/DibsCLI"
-
-[build-system]
-requires = ["flit_core >=2"]
-build-backend = "flit_core.buildapi"
 
 [tool.black]
 line-length = 88
 target-version = ['py310']
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "src"
+]

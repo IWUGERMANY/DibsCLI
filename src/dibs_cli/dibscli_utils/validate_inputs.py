@@ -4,11 +4,11 @@ import re
 import os
 import argparse
 
-VALID_PROFILE_FROM_NORM = ["din18599", "sia2024"]
+VALID_PROFILE_FROM_NORM = ["din18599", "sia2024", "mza"]
 
 VALID_GAINS_FROM_GROUP_VALUES = ["low", "mid", "max"]
 
-VALID_USAGE_NORM = ["din18599", "sia2024"]
+VALID_USAGE_NORM = ["din18599", "sia2024", "mza"]
 
 Valid_WEATHER_PERIOD = ["2004-2018", "2007-2021"]
 
