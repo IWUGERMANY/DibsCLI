@@ -113,7 +113,7 @@ def convert_end_result_to_dataframe(result: SummaryResult) -> pd.DataFrame:
         "weather_period": result.weather_period})
 
 
-def convert_result_of_all_hours_to_dataframe(result: Result, building: Building, iteration: int, summary_only: bool) -> pd.DataFrame | None:
+def convert_result_of_all_hours_to_dataframe(result: Result, building: Building, iteration: int) -> pd.DataFrame:
     """
     Maps the results of the simulated building to an Excel file (all hours)
     Args:
@@ -124,38 +124,36 @@ def convert_result_of_all_hours_to_dataframe(result: Result, building: Building,
     Returns:
         df
     """
-    if summary_only:
-        return pd.DataFrame(
-            {
-                "HeatingDemand": result.heating_demand,
-                "HeatingEnergy": result.heating_energy,
-                "Heating_Sys_Electricity": result.heating_sys_electricity,
-                "Heating_Sys_Fossils": result.heating_sys_fossils,
-                "CoolingDemand": result.cooling_demand,
-                "CoolingEnergy": result.cooling_energy,
-                "Cooling_Sys_Electricity": result.cooling_sys_electricity,
-                "Cooling_Sys_Fossils": result.cooling_sys_fossils,
-                "HotWaterDemand": result.all_hot_water_demand,
-                "HotWaterEnergy": result.all_hot_water_energy,
-                "HotWater_Sys_Electricity": result.hot_water_sys_electricity,
-                "HotWater_Sys_Fossils": result.hot_water_sys_fossils,
-                "IndoorAirTemperature": result.temp_air,
-                "OutsideTemperature": result.outside_temp,
-                "LightingDemand": result.lighting_demand,
-                "InternalGains": result.internal_gains,
-                "Appliance_gains_demand": result.appliance_gains_demand,
-                "Appliance_gains_elt_demand": result.appliance_gains_elt_demand,
-                "SolarGainsSouthWindow": result.solar_gains_south_window,
-                "SolarGainsEastWindow": result.solar_gains_east_window,
-                "SolarGainsWestWindow": result.solar_gains_west_window,
-                "SolarGainsNorthWindow": result.solar_gains_north_window,
-                "SolarGainsTotal": result.solar_gains_total,
-                "Daytime": result.DayTime,
-                "iteration": iteration,
-                "GebäudeID": building.scr_gebaeude_id,
-            }
-        )
-    return None
+    return pd.DataFrame(
+        {
+            "HeatingDemand": result.heating_demand,
+            "HeatingEnergy": result.heating_energy,
+            "Heating_Sys_Electricity": result.heating_sys_electricity,
+            "Heating_Sys_Fossils": result.heating_sys_fossils,
+            "CoolingDemand": result.cooling_demand,
+            "CoolingEnergy": result.cooling_energy,
+            "Cooling_Sys_Electricity": result.cooling_sys_electricity,
+            "Cooling_Sys_Fossils": result.cooling_sys_fossils,
+            "HotWaterDemand": result.all_hot_water_demand,
+            "HotWaterEnergy": result.all_hot_water_energy,
+            "HotWater_Sys_Electricity": result.hot_water_sys_electricity,
+            "HotWater_Sys_Fossils": result.hot_water_sys_fossils,
+            "IndoorAirTemperature": result.temp_air,
+            "OutsideTemperature": result.outside_temp,
+            "LightingDemand": result.lighting_demand,
+            "InternalGains": result.internal_gains,
+            "Appliance_gains_demand": result.appliance_gains_demand,
+            "Appliance_gains_elt_demand": result.appliance_gains_elt_demand,
+            "SolarGainsSouthWindow": result.solar_gains_south_window,
+            "SolarGainsEastWindow": result.solar_gains_east_window,
+            "SolarGainsWestWindow": result.solar_gains_west_window,
+            "SolarGainsNorthWindow": result.solar_gains_north_window,
+            "SolarGainsTotal": result.solar_gains_total,
+            "Daytime": result.DayTime,
+            "iteration": iteration,
+            "GebäudeID": building.scr_gebaeude_id,
+        }
+    )
 
 
 def save_results_of_all_buildings_hours_in_csv_parallel_using_thread_executor(buildings: list[Building],

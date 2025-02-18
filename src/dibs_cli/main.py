@@ -53,12 +53,14 @@ def simulate_one_building(
 
     with tqdm(total=1, desc="Writing Excel", colour='red') as pbar:
         start_time = time.time()
-        all_hours_result_dataframe = convert_result_of_all_hours_to_dataframe(result_of_all_hours,
-                                                                              datasource_csv.building,
-                                                                              0, summary_only)
-
+        if summary_only:
+            all_hours_result_dataframe = convert_result_of_all_hours_to_dataframe(result_of_all_hours,
+                                                                                  datasource_csv.building,
+                                                                                  0)
         build_file_name = f"{datasource_csv.building.scr_gebaeude_id}.csv"
-        all_hours_result_dataframe.to_csv(f"{folder_path}/{build_file_name}")
+        if summary_only:
+            all_hours_result_dataframe.to_csv(f"{folder_path}/{build_file_name}")
+
         end_time = time.time()
         saving_all_hours_result_time = end_time - start_time
         pbar.update(1)
