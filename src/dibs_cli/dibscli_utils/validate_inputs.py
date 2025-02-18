@@ -159,6 +159,7 @@ def validate_weather_period(weather_period: str):
         )
     return weather_period
 
+
 def validate_summary_only(summary_only: bool):
     if not isinstance(summary_only, bool):
         raise argparse.ArgumentTypeError("Parameter 'summary_only' must be a boolean value (True or False).")

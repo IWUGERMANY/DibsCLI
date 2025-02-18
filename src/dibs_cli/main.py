@@ -53,12 +53,12 @@ def simulate_one_building(
 
     with tqdm(total=1, desc="Writing Excel", colour='red') as pbar:
         start_time = time.time()
-        if summary_only:
+        if not summary_only:
             all_hours_result_dataframe = convert_result_of_all_hours_to_dataframe(result_of_all_hours,
                                                                                   datasource_csv.building,
                                                                                   0)
         build_file_name = f"{datasource_csv.building.scr_gebaeude_id}.csv"
-        if summary_only:
+        if not summary_only:
             all_hours_result_dataframe.to_csv(f"{folder_path}/{build_file_name}")
 
         end_time = time.time()
@@ -73,9 +73,10 @@ def simulate_one_building(
         f"Time to save [bold yellow]results[/bold yellow] in [bold yellow]csv[/bold yellow] file is : [bold magenta]{saving_summary_result_time}s[/bold magenta]"
     )
 
-    console.print(
-        f"Time to save [bold yellow]results of the 8760 hours[/bold yellow] in [bold yellow]Excel[/bold yellow] file is : [bold magenta]{saving_all_hours_result_time}s[/bold magenta]"
-    )
+    if not summary_only:
+        console.print(
+            f"Time to save [bold yellow]results of the 8760 hours[/bold yellow] in [bold yellow]Excel[/bold yellow] file is : [bold magenta]{saving_all_hours_result_time}s[/bold magenta]"
+        )
 
     console.print(
         f"The files contain the results are [bold yellow]{build_file_name}[/bold yellow] and [bold yellow]annualResults_summary.xlsx[/bold yellow] and saved in this folder [bold magenta]{folder_path}[/bold magenta]"
@@ -113,7 +114,7 @@ def simulate_all_building(
         saving_summary_result = end_time - start_time
         pbar.update(1)
 
-    if summary_only:
+    if not summary_only:
         with tqdm(total=1, desc="Writing hourly result in ", colour='red') as pbar:
             time_to_save_hourly_results = save_results_of_all_buildings_hours_in_csv_parallel_using_thread_executor(
                 dibs.datasource.buildings,
@@ -135,7 +136,7 @@ def simulate_all_building(
     console.print(
         f"Time to save summary results  is: [bold gold]{saving_summary_result}s[/bold gold]"
     )
-    if summary_only:
+    if not summary_only:
         console.print(
             f"Time to save hourly results  is: [bold gold]{time_to_save_hourly_results}s[/bold gold]"
         )
