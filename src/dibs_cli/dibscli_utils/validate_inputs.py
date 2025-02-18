@@ -10,7 +10,7 @@ VALID_GAINS_FROM_GROUP_VALUES = ["low", "mid", "max"]
 
 VALID_USAGE_NORM = ["din18599", "sia2024", "mza"]
 
-Valid_WEATHER_PERIOD = ["2004-2018", "2007-2021"]
+VALID_WEATHER_PERIOD = ["2004-2018", "2007-2021"]
 
 UNITS = [
     "",
@@ -153,12 +153,16 @@ def validate_weather_period(weather_period: str):
     pattern = re.compile(r"^\d{4}-\d{4}$")
     if not pattern.match(weather_period):
         raise argparse.ArgumentTypeError("Invalid date range format. Please use 'YYYY-YYYY'.")
-    if weather_period not in Valid_WEATHER_PERIOD:
+    if weather_period not in VALID_WEATHER_PERIOD:
         raise argparse.ArgumentTypeError(
-            f"Invalid weather period Please choose one of: {', '.join(Valid_WEATHER_PERIOD)}"
+            f"Invalid weather period Please choose one of: {', '.join(VALID_WEATHER_PERIOD)}"
         )
     return weather_period
 
+def validate_summary_only(summary_only: bool):
+    if not isinstance(summary_only, bool):
+        raise argparse.ArgumentTypeError("Parameter 'summary_only' must be a boolean value (True or False).")
+    return summary_only
 
 def check_the_file_given_by_the_user(path):
     console = Console()

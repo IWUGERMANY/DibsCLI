@@ -11,7 +11,7 @@ from .dibscli_utils.save_results import convert_result_of_all_hours_to_dataframe
     save_results_of_all_buildings_hours_in_csv_parallel_using_thread_executor, \
     build_all_results_of_all_buildings_to_dataframe
 from .dibscli_utils.validate_inputs import create_result_table, validate_weather_period, validate_usage_from_norm, \
-    validate_profile_from_norm, validate_gains_from_group_values
+    validate_profile_from_norm, validate_gains_from_group_values, validate_summary_only
 from tqdm import tqdm
 
 console = Console()
@@ -28,8 +28,9 @@ def simulate_one_building(
                                                     callback=validate_gains_from_group_values),
         usage_from_norm: str = typer.Option('sia2024', '--usage_from_norm', metavar='VALID_USAGE_NORM',
                                             callback=validate_usage_from_norm),
-        weather_period: str = typer.Option('2007-2021', '--weather_period', metavar='Valid_WEATHER_PERIOD',
-                                           callback=validate_weather_period)
+        weather_period: str = typer.Option('2007-2021', '--weather_period', metavar='VALID_WEATHER_PERIOD',
+                                           callback=validate_weather_period),
+        summary_only: bool = typer.Option(False, '--summary_only', callback=validate_summary_only)
 ):
     check_the_file_given_by_the_user(data_path)
     folder_path = os.path.dirname(data_path)
@@ -54,7 +55,7 @@ def simulate_one_building(
         start_time = time.time()
         all_hours_result_dataframe = convert_result_of_all_hours_to_dataframe(result_of_all_hours,
                                                                               datasource_csv.building,
-                                                                              0)
+                                                                              0, summary_only)
 
         build_file_name = f"{datasource_csv.building.scr_gebaeude_id}.csv"
         all_hours_result_dataframe.to_csv(f"{folder_path}/{build_file_name}")
@@ -88,7 +89,8 @@ def simulate_all_building(
         gains_from_group_values: str = typer.Option('mid', '--gains_from_group_values',
                                                     metavar='VALID_GAINS_FROM_GROUP_VALUES'),
         usage_from_norm: str = typer.Option('sia2024', '--usage_from_norm', metavar='VALID_USAGE_NORM'),
-        weather_period: str = typer.Option('2007-2021', '--weather_period', metavar='Valid_WEATHER_PERIOD')
+        weather_period: str = typer.Option('2007-2021', '--weather_period', metavar='VALID_WEATHER_PERIOD'),
+        summary_only: bool = typer.Option(False, '--summary_only', callback=validate_summary_only)
 ):
     folder_path = os.path.dirname(data_path)
     check_the_file_given_by_the_user(data_path)
@@ -109,11 +111,12 @@ def simulate_all_building(
         saving_summary_result = end_time - start_time
         pbar.update(1)
 
-    with tqdm(total=1, desc="Writing hourly result in ", colour='red') as pbar:
-        time_to_save_hourly_results = save_results_of_all_buildings_hours_in_csv_parallel_using_thread_executor(
-            dibs.datasource.buildings,
-            result_of_all_hours, folder_path)
-        pbar.update(1)
+    if summary_only:
+        with tqdm(total=1, desc="Writing hourly result in ", colour='red') as pbar:
+            time_to_save_hourly_results = save_results_of_all_buildings_hours_in_csv_parallel_using_thread_executor(
+                dibs.datasource.buildings,
+                result_of_all_hours, folder_path)
+            pbar.update(1)
 
     console.print(
         "---------------------------------------------------------------------------------"
@@ -130,9 +133,10 @@ def simulate_all_building(
     console.print(
         f"Time to save summary results  is: [bold gold]{saving_summary_result}s[/bold gold]"
     )
-    console.print(
-        f"Time to save hourly results  is: [bold gold]{time_to_save_hourly_results}s[/bold gold]"
-    )
+    if summary_only:
+        console.print(
+            f"Time to save hourly results  is: [bold gold]{time_to_save_hourly_results}s[/bold gold]"
+        )
 
 
 if __name__ == "__main__":
