@@ -31,7 +31,7 @@ def convert_end_result_to_dataframe(result: SummaryResult) -> pd.DataFrame:
         "Heating_Sys_Fossils [kwhHs/m2]": result.heating_sys_fossils_surface,
         "Heating_Sys_Fossils_Hi [kWhHi]": result.heating_sys_fossils_hi,
         "Heating_Sys_GWP [kg]": result.heating_sys_gwp,
-        "Heating_Sys_GWP [kg/m2]": result.heating_sys_gwp,
+        "Heating_Sys_GWP [kg/m2]": result.heating_sys_gwp_surface,
         "Heating_Sys_PE [kWh]": result.heating_sys_pe,
         "Heating_Sys_PE [kWh/m2]": result.heating_sys_pe_surface,
         "CoolingDemand [kWh]": result.cooling_demand,
