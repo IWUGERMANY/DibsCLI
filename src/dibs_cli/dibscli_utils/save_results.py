@@ -90,7 +90,7 @@ def convert_end_result_to_dataframe(result: SummaryResult) -> pd.DataFrame:
         "Appliance_gains_demand_GWP [kg]": result.appliance_gains_demand_gwp,
         "Appliance_gains_demand_GWP [kg/m2]": result.appliance_gains_demand_gwp_surface,
         "Appliance_gains_demand_PE [kWh]": result.appliance_gains_demand_pe,
-        "Appliance_gains_demand_PE [kWh/m2]": result.appliance_gains_demand_pe,
+        "Appliance_gains_demand_PE [kWh/m2]": result.appliance_gains_demand_pe_surface,
         "GWP [kg]": result.gwp,
         "GWP [kg/m2]": result.gwp_surface,
         "PE [kWh]": result.pe,
