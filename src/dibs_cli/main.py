@@ -33,6 +33,7 @@ def simulate_one_building(
         summary_only: bool = typer.Option(False, '--summary_only', callback=validate_summary_only)
 ):
     check_the_file_given_by_the_user(data_path)
+
     folder_path = os.path.dirname(data_path)
 
     datasource_csv = DataSourceCSV(data_path, profile_from_norm, gains_from_group_values,
@@ -40,12 +41,13 @@ def simulate_one_building(
                                    weather_period)
 
     dibs = DIBS(datasource_csv)
+    file_name = os.path.basename(data_path)
 
     simulation_time, result_of_all_hours, summary_result = dibs.calculate_result_of_one_building()
 
     with tqdm(total=1, desc="Writing summary result in ", colour='red') as pbar:
         start_time = time.time()
-        summary_result_dataframe = convert_end_result_to_dataframe(summary_result)
+        summary_result_dataframe = convert_end_result_to_dataframe(summary_result, file_name)
         summary_result_dataframe.to_excel(rf"{folder_path}/annualResults_summary.xlsx", index=False)
         end_time = time.time()
         saving_summary_result_time = end_time - start_time
@@ -104,11 +106,12 @@ def simulate_all_building(
 
     dibs = DIBS(datasource_csv)
 
+    file_name = os.path.basename(data_path)
     simulation_time, result_of_all_hours, summary_result = dibs.multi()
 
     with tqdm(total=1, desc="Writing summary result in ", colour='red') as pbar:
         start_time = time.time()
-        summary_result_dataframe = build_all_results_of_all_buildings_to_dataframe(summary_result)
+        summary_result_dataframe = build_all_results_of_all_buildings_to_dataframe(summary_result, file_name)
         summary_result_dataframe.to_excel(rf"{folder_path}/annualResults_summary.xlsx", index=False)
         end_time = time.time()
         saving_summary_result = end_time - start_time

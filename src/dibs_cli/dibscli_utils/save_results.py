@@ -8,7 +8,7 @@ import importlib.metadata
 from datetime import datetime
 
 
-def convert_end_result_to_dataframe(result: SummaryResult) -> pd.DataFrame:
+def convert_end_result_to_dataframe(result: SummaryResult, file_name: str) -> pd.DataFrame:
     now = datetime.now()
     formatted = now.strftime("%Y-%m-%d %H:%M:%S")
 
@@ -129,6 +129,7 @@ def convert_end_result_to_dataframe(result: SummaryResult) -> pd.DataFrame:
         "dibs_datasource_csv": my_list[1],
         "dibs_cli": my_list[2],
         "dibs_data": my_list[3],
+        "file_name": file_name,
         "Time and date": formatted
     })
 
@@ -209,7 +210,7 @@ def save_results_of_all_buildings_hours_in_csv_parallel_using_thread_executor(bu
     return end_saving_time - begin_saving_time
 
 
-def build_all_results_of_all_buildings_to_dataframe(results: list[SummaryResult]) -> pd.DataFrame:
+def build_all_results_of_all_buildings_to_dataframe(results: list[SummaryResult], file_name: str) -> pd.DataFrame:
     """
     Converts the results of all buildings to an Excel file saved in the result directory
     Args:
@@ -220,7 +221,7 @@ def build_all_results_of_all_buildings_to_dataframe(results: list[SummaryResult]
 
     """
     list_of_results = [
-        convert_end_result_to_dataframe(result)
+        convert_end_result_to_dataframe(result, file_name)
         for result in results
     ]
 
