@@ -110,7 +110,9 @@ def convert_end_result_to_dataframe(result: SummaryResult) -> pd.DataFrame:
         "profile_from_norm": result.profile_from_norm,
         "gains_from_group_values": result.gains_from_group_values,
         "usage_from_norm": result.usage_from_norm,
-        "weather_period": result.weather_period})
+        "weather_period": result.weather_period,
+        "dibs_cli_version": dibs_computing_core.__version__,
+    })
 
 
 def convert_result_of_all_hours_to_dataframe(result: Result, building: Building, iteration: int) -> pd.DataFrame:
