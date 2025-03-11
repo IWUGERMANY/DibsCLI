@@ -4,9 +4,23 @@ import time
 from dibs_computing_core.iso_simulator.model.summary_result import SummaryResult
 from dibs_computing_core.iso_simulator.model.building import Building
 from dibs_computing_core.iso_simulator.model.hours_result import Result
+import importlib.metadata
+from datetime import datetime
 
 
 def convert_end_result_to_dataframe(result: SummaryResult) -> pd.DataFrame:
+    now = datetime.now()
+    formatted = now.strftime("%Y-%m-%d %H:%M:%S")
+
+    dependencies = ["dibs_computing_core", "dibs_datasource_csv", "dibs_cli", "dibs_data"]
+    my_list = []
+
+    for package in dependencies:
+        try:
+            version = importlib.metadata.version(package)
+            my_list.append(version)
+        except importlib.metadata.PackageNotFoundError:
+            print(f"{package}: Nicht installiert")
     """
     Maps a list of ResultOutput objects to a pandas Dataframe
     Args:
@@ -111,7 +125,11 @@ def convert_end_result_to_dataframe(result: SummaryResult) -> pd.DataFrame:
         "gains_from_group_values": result.gains_from_group_values,
         "usage_from_norm": result.usage_from_norm,
         "weather_period": result.weather_period,
-        "dibs_cli_version": dibs_computing_core.__version__,
+        "dibs_computing_core": my_list[0],
+        "dibs_datasource_csv": my_list[1],
+        "dibs_cli": my_list[2],
+        "dibs_data": my_list[3],
+        "Time and date": formatted
     })
 
 
