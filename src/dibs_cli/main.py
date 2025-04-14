@@ -11,7 +11,7 @@ from .dibscli_utils.save_results import convert_result_of_all_hours_to_dataframe
     save_results_of_all_buildings_hours_in_csv_parallel_using_thread_executor, \
     build_all_results_of_all_buildings_to_dataframe
 from .dibscli_utils.validate_inputs import create_result_table, validate_weather_period, validate_usage_from_norm, \
-    validate_profile_from_norm, validate_gains_from_group_values, validate_summary_only
+    validate_profile_from_norm, validate_gains_from_group_values, validate_summary_only, validate_primary_energy_factor
 from tqdm import tqdm
 
 console = Console()
@@ -28,6 +28,7 @@ def simulate_one_building(
                                                     callback=validate_gains_from_group_values),
         usage_from_norm: str = typer.Option('sia2024', '--usage_from_norm', metavar='VALID_USAGE_NORM',
                                             callback=validate_usage_from_norm),
+        primary_energy_factor: str = typer.Option('Primary Energy Factor GEG   [-]', '--primary_energy_factor', metavar='VALID_PRIMARY_ENERGY_FACTOR', callback=validate_primary_energy_factor),
         weather_period: str = typer.Option('2007-2021', '--weather_period', metavar='VALID_WEATHER_PERIOD',
                                            callback=validate_weather_period),
         summary_only: bool = typer.Option(False, '--summary_only', callback=validate_summary_only)
@@ -38,7 +39,7 @@ def simulate_one_building(
 
     datasource_csv = DataSourceCSV(data_path, profile_from_norm, gains_from_group_values,
                                    usage_from_norm,
-                                   weather_period)
+                                   weather_period, primary_energy_factor)
 
     dibs = DIBS(datasource_csv)
     file_name = os.path.basename(data_path)
@@ -94,6 +95,7 @@ def simulate_all_building(
         gains_from_group_values: str = typer.Option('mid', '--gains_from_group_values',
                                                     metavar='VALID_GAINS_FROM_GROUP_VALUES'),
         usage_from_norm: str = typer.Option('sia2024', '--usage_from_norm', metavar='VALID_USAGE_NORM'),
+        primary_energy_factor: str = typer.Option('Primary Energy Factor GEG   [-]', '--primary_energy_factor', metavar='VALID_PRIMARY_ENERGY_FACTOR', callback=validate_primary_energy_factor),
         weather_period: str = typer.Option('2007-2021', '--weather_period', metavar='VALID_WEATHER_PERIOD'),
         summary_only: bool = typer.Option(False, '--summary_only', callback=validate_summary_only)
 ):
@@ -102,7 +104,8 @@ def simulate_all_building(
 
     datasource_csv = DataSourceCSV(data_path, profile_from_norm, gains_from_group_values,
                                    usage_from_norm,
-                                   weather_period)
+                                   weather_period,
+                                   primary_energy_factor)
 
     dibs = DIBS(datasource_csv)
 

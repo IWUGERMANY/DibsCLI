@@ -12,6 +12,8 @@ VALID_USAGE_NORM = ["din18599", "sia2024", "mza"]
 
 VALID_WEATHER_PERIOD = ["2004-2018", "2007-2021"]
 
+VALID_PRIMARY_ENERGY_FACTOR = ["GEG", "EPBD2020", "EPBD2030"]
+
 UNITS = [
     "",
     "",
@@ -133,6 +135,14 @@ def validate_profile_from_norm(profile_from_norm: str):
     return profile_from_norm
 
 
+def validate_primary_energy_factor(primary_energy_factor: str):
+    if primary_energy_factor not in VALID_PRIMARY_ENERGY_FACTOR:
+        raise argparse.ArgumentTypeError(
+            f"Invalid primary energy factor Please choose one of: {', '.join(VALID_PRIMARY_ENERGY_FACTOR)}"
+        )
+    return primary_energy_factor
+
+
 def validate_gains_from_group_values(gains_from_group_values: str):
     if gains_from_group_values not in VALID_GAINS_FROM_GROUP_VALUES:
         raise argparse.ArgumentTypeError(
@@ -164,6 +174,7 @@ def validate_summary_only(summary_only: bool):
     if not isinstance(summary_only, bool):
         raise argparse.ArgumentTypeError("Parameter 'summary_only' must be a boolean value (True or False).")
     return summary_only
+
 
 def check_the_file_given_by_the_user(path):
     console = Console()
