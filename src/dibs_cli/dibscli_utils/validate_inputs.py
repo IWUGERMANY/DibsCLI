@@ -203,6 +203,7 @@ def create_result_table(end_result_dataframe):
     table.add_column("VALUE", min_width=13)
     table.add_column("UNIT", width=10)
     for index, (column_name, series) in enumerate(end_result_dataframe.items()):
+        print(f'UNITS[index] ist : {UNITS[index]}')
         table.add_row(
             str(index),
             column_name,
