@@ -113,6 +113,7 @@ def simulate_all_building(
         start_time = time.time()
         summary_result_dataframe = build_all_results_of_all_buildings_to_dataframe(summary_result, file_name)
         summary_result_dataframe.to_excel(rf"{folder_path}/annualResults_summary.xlsx", index=False)
+        print(f"folder_path is : {folder_path}")
         end_time = time.time()
         saving_summary_result = end_time - start_time
         pbar.update(1)
