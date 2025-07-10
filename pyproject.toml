@@ -22,7 +22,8 @@ dependencies = [
   "tqdm",
   "typer",
   "dibs_computing_core @ git+https://github.com/IWUGERMANY/DibsComputingCore.git@dibscc101",
-  "dibs_datasource_csv @ git+https://github.com/IWUGERMANY/DibsDataSourceCSV.git@dibsdatasourcecvs102",
+  "dibs_datasource_csv @ git+https://github.com/IWUGERMANY/DibsDataSourceCSV.git@primary_energy",
+#  "dibs_datasource_csv @ git+https://github.com/IWUGERMANY/DibsDataSourceCSV.git@dibsdatasourcecvs102",
 #  "dibs_datasource_csv",
 #  "dibs_data"
 ]
