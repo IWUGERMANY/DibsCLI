@@ -47,7 +47,9 @@ attributes as a building object.
 - `ermi`: type of `str`. (Optional)
 - `gains_from_group_values`: type of `str`. (Optional)
 - `usage_from_norm`: type of `str`. (Optional)
+- `primary_energy_factor`: type of `str`. (Optional)
 - `weather_period`: type of `str`. (Optional)
+- `summary_only`: type of `bool`. (Optional)
 
 ### CSV File Format Requirements:
 
