@@ -1,6 +1,7 @@
 import os
 import typer
 import time
+from math import ceil
 from rich.console import Console
 from dibs_datasource_csv.datasource_csv import DataSourceCSV
 from dibs_computing_core.iso_simulator.dibs.dibs import DIBS
@@ -151,6 +152,84 @@ def simulate_all_building(
         console.print(
             f"Time to save hourly results  is: [bold gold]{time_to_save_hourly_results}s[/bold gold]"
         )
+
+
+@app.command()
+def simulate_buildings_with_batches(
+        data_path: str,
+        profile_from_norm: str = typer.Option('din18599', '--profile_from_norm', metavar='VALID_PROFILE_FROM_NORM'),
+        gains_from_group_values: str = typer.Option('mid', '--gains_from_group_values',
+                                                    metavar='VALID_GAINS_FROM_GROUP_VALUES'),
+        usage_from_norm: str = typer.Option('sia2024', '--usage_from_norm', metavar='VALID_USAGE_NORM'),
+        weather_period: str = typer.Option('2007-2021', '--weather_period', metavar='VALID_WEATHER_PERIOD'),
+        summary_only: bool = typer.Option(False, '--summary_only', callback=validate_summary_only),
+        primary_energy_factor: str = typer.Option('Primary Energy Factor GEG   [-]', '--primary_energy_factor',
+                                                  metavar='VALID_PRIMARY_ENERGY_FACTOR',
+                                                  callback=validate_primary_energy_factor),
+):
+    folder_path = os.path.dirname(data_path)
+    check_the_file_given_by_the_user(data_path)
+
+    datasource_csv = DataSourceCSV(data_path, profile_from_norm, gains_from_group_values,
+                                   usage_from_norm,
+                                   weather_period,
+                                   primary_energy_factor)
+
+    dibs = DIBS(datasource_csv)
+
+    file_name = os.path.basename(data_path)
+
+    user_args = dibs.get_user_args()
+    dibs.datasource.get_user_buildings()
+    dibs.datasource.get_epw_pe_factors()
+
+    buildings = dibs.datasource.buildings
+    batch_size = 100
+    total_buildings = len(buildings)
+    batches = ceil(total_buildings / batch_size)
+
+    for batch_index in range(batches):
+        start = batch_index * batch_size
+        end = min(start + batch_size, total_buildings)
+        batch_results = []
+
+        simulation_time, result_of_all_hours, summary_result = dibs.multi_with_batches(user_args, buildings, start, end,
+                                                                                       batch_results)
+
+        with tqdm(total=1, desc="Writing summary result in ", colour='red') as pbar:
+            start_time = time.time()
+            summary_result_dataframe = build_all_results_of_all_buildings_to_dataframe(summary_result, file_name)
+            summary_result_dataframe.to_excel(rf"{folder_path}/annualResults_summary.xlsx", index=False)
+            end_time = time.time()
+            saving_summary_result = end_time - start_time
+            pbar.update(1)
+
+        if not summary_only:
+            with tqdm(total=1, desc="Writing hourly result in ", colour='red') as pbar:
+                time_to_save_hourly_results = save_results_of_all_buildings_hours_in_csv_parallel_using_thread_executor(
+                    dibs.datasource.buildings,
+                    result_of_all_hours, folder_path)
+                pbar.update(1)
+
+        console.print(
+            "---------------------------------------------------------------------------------"
+        )
+        console.print(
+            f"All results will be saved in the folder: [bold magenta]{folder_path}s[/bold magenta]"
+        )
+        console.print(
+            "---------------------------------------------------------------------------------"
+        )
+        console.print(
+            f"Time to simulate all buildings is: [bold magenta]{simulation_time}s[/bold magenta]"
+        )
+        console.print(
+            f"Time to save summary results  is: [bold gold]{saving_summary_result}s[/bold gold]"
+        )
+        if not summary_only:
+            console.print(
+                f"Time to save hourly results  is: [bold gold]{time_to_save_hourly_results}s[/bold gold]"
+            )
 
 
 if __name__ == "__main__":
