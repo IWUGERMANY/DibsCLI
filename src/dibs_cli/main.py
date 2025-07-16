@@ -1,6 +1,8 @@
 import os
+import glob
 import typer
 import time
+import pandas as pd
 from math import ceil
 from rich.console import Console
 from dibs_datasource_csv.datasource_csv import DataSourceCSV
@@ -199,7 +201,9 @@ def simulate_buildings_with_batches(
         with tqdm(total=1, desc="Writing summary result in ", colour='red') as pbar:
             start_time = time.time()
             summary_result_dataframe = build_all_results_of_all_buildings_to_dataframe(summary_result, file_name)
-            summary_result_dataframe.to_excel(rf"{folder_path}/annualResults_summary{batch_index}.xlsx", index=False)
+            batch_file = os.path.join(folder_path, f"annualResults_summary{batch_index}.xlsx")
+            summary_result_dataframe.to_excel(batch_file, index=False)
+            # summary_result_dataframe.to_excel(rf"{folder_path}/annualResults_summary{batch_index}.xlsx", index=False)
             end_time = time.time()
             saving_summary_result = end_time - start_time
             pbar.update(1)
@@ -230,6 +234,21 @@ def simulate_buildings_with_batches(
             console.print(
                 f"Time to save hourly results  is: [bold gold]{time_to_save_hourly_results}s[/bold gold]"
             )
+    print("Merging all batch Excel files into one...")
+
+    all_files = glob.glob(os.path.join(folder_path, "annualResults_summary*.xlsx"))
+
+    df_list = [pd.read_excel(file) for file in all_files]
+    merged_df = pd.concat(df_list, ignore_index=True)
+
+    final_path = os.path.join(folder_path, "annualResults_summary.xlsx")
+    merged_df.to_excel(final_path, index=False)
+
+    for file in all_files:
+        if file != final_path:
+            os.remove(file)
+
+    print(f"? Zusammenfassung gespeichert unter: {final_path}")
 
 
 if __name__ == "__main__":
