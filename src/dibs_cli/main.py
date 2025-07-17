@@ -1,5 +1,6 @@
 import os
 import glob
+import re
 import typer
 import time
 import pandas as pd
@@ -234,22 +235,40 @@ def simulate_buildings_with_batches(
             console.print(
                 f"Time to save hourly results  is: [bold gold]{time_to_save_hourly_results}s[/bold gold]"
             )
-    print("Merging all batch Excel files into one...")
+    # print("Merging all batch Excel files into one...")
+    #
+    # all_files = glob.glob(os.path.join(folder_path, "annualResults_summary*.xlsx"))
+    # print(f'all files: {all_files}')
+    #
+    # df_list = [pd.read_excel(file) for file in all_files]
+    # merged_df = pd.concat(df_list, ignore_index=True)
+    #
+    # final_path = os.path.join(folder_path, "annualResults_summary.xlsx")
+    # merged_df.to_excel(final_path, index=False)
+    #
+    # for file in all_files:
+    #     if file != final_path:
+    #         os.remove(file)
+    #
+    # print(f"? Zusammenfassung gespeichert unter: {final_path}")
 
     all_files = glob.glob(os.path.join(folder_path, "annualResults_summary*.xlsx"))
-    print(f'all files: {all_files}')
 
-    df_list = [pd.read_excel(file) for file in all_files]
+    def extract_number(filename):
+        match = re.search(r"summary(\d+)\.xlsx$", filename)
+        return int(match.group(1)) if match else -1
+
+    all_files_sorted = sorted(all_files, key=extract_number)
+
+    df_list = [pd.read_excel(file) for file in all_files_sorted if extract_number(file) != -1]
     merged_df = pd.concat(df_list, ignore_index=True)
 
     final_path = os.path.join(folder_path, "annualResults_summary.xlsx")
     merged_df.to_excel(final_path, index=False)
 
-    for file in all_files:
-        if file != final_path:
+    for file in all_files_sorted:
+        if extract_number(file) != -1:
             os.remove(file)
-
-    print(f"? Zusammenfassung gespeichert unter: {final_path}")
 
 
 if __name__ == "__main__":
