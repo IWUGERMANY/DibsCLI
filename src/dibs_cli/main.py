@@ -237,6 +237,7 @@ def simulate_buildings_with_batches(
     print("Merging all batch Excel files into one...")
 
     all_files = glob.glob(os.path.join(folder_path, "annualResults_summary*.xlsx"))
+    print(f'all files: {all_files}')
 
     df_list = [pd.read_excel(file) for file in all_files]
     merged_df = pd.concat(df_list, ignore_index=True)
