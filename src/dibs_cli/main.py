@@ -202,7 +202,7 @@ def simulate_buildings_with_batches(
         with tqdm(total=1, desc="Writing summary result in ", colour='red') as pbar:
             start_time = time.time()
             summary_result_dataframe = build_all_results_of_all_buildings_to_dataframe(summary_result, file_name)
-            batch_file = os.path.join(folder_path, f"annualResults_summary{batch_index}.xlsx")
+            batch_file = os.path.join(folder_path, f"TEMPDIBSres#{batch_index}.xlsx")
             summary_result_dataframe.to_excel(batch_file, index=False)
             # summary_result_dataframe.to_excel(rf"{folder_path}/annualResults_summary{batch_index}.xlsx", index=False)
             end_time = time.time()
@@ -252,10 +252,10 @@ def simulate_buildings_with_batches(
     #
     # print(f"? Zusammenfassung gespeichert unter: {final_path}")
 
-    all_files = glob.glob(os.path.join(folder_path, "annualResults_summary*.xlsx"))
+    all_files = glob.glob(os.path.join(folder_path, "TEMPDIBSres#*.xlsx"))
 
     def extract_number(filename):
-        match = re.search(r"summary(\d+)\.xlsx$", filename)
+        match = re.search(r"TEMPDIBSres#(\d+)\.xlsx$", filename)
         return int(match.group(1)) if match else -1
 
     all_files_sorted = sorted(all_files, key=extract_number)
