@@ -1,168 +1,68 @@
 # Building Simulation CLI
 
-This Python program provides a command-line interface (CLI) for simulating buildings based on data provided in a CSV or
-Excel file. The program offers two main commands (`simulate_one_building` and `simulate_all_building`) to simulate
-individual buildings or multiple buildings simultaneously.
+This package provides the `dibs-cli` command for running DIBS building simulations
+from CSV or Excel input files.
 
-## Prerequisites
+## Commands
 
-Before running this program, ensure you have Python 3.10 or higher installed on your system. If Python is not already
-installed, you can download and install it from the official website: [Python.org](https://www.python.org/downloads/)
+- `dibs-cli simulate-one-building <path>`
+- `dibs-cli simulate-all-building <path>`
+- `dibs-cli simulate-buildings-with-batches <path>`
 
-### Installing Python
+The optional flags remain:
 
-1. Visit the [Python Downloads](https://www.python.org/downloads/) page.
-2. Choose the version appropriate for your operating system (Windows, macOS, or Linux) and click on the download link.
-3. Run the installer and follow the installation instructions.
-4. During the installation process, make sure to check the box that says "Add Python to PATH" or "Add Python to
-   environment variables" to ensure Python is added to your system PATH.
-5. Once the installation is complete, open a command prompt or terminal and type `python --version` to verify that
-   Python is installed correctly.
+- `--profile_from_norm`
+- `--gains_from_group_values`
+- `--usage_from_norm`
+- `--weather_period`
+- `--primary_energy_factor`
+- `--summary_only`
 
-#### Usage
+Use `dibs-cli --help` to list all commands and options.
 
-<<<<<<< HEAD
-To execute the CLI, use the provided command `dibs-cli`. The program expects the path to the file containing
-=======
-To execute the CLI, use the provided Python script `dibs-cli.py`. The program expects the path to the file containing
->>>>>>> 2bb6869151fc32af8b98fa652c2fa4af201341f2
-building data as the first argument. The remaining four arguments are optional and have default values. If the user only
-provides the path argument, the program will use default values for the other arguments. If the user provides all five
-arguments, the program will simulate using the user's input.
+## Outputs
 
-### Command `simulate_one_building`
+For each run, the CLI writes:
 
-The `simulate_one` command performs the simulation for a single building. The building data must be provided as a CSV or
-Excel file and contain only one record.
+- `annualResults_summary.xlsx`
+- one full-year hourly csv per building: `<BuildingID>.csv`
+- one heating-period-only hourly csv per building: `<BuildingID>_heating_period.csv`
 
-### Command `simulate_all_building`
+The summary workbook now includes:
 
-The `simulate_all` command performs the simulation for multiple buildings. The building data must be provided as a CSV
-or Excel file and contain multiple records. Each record must match the same pattern and have the same number of
-attributes as a building object.
+- transmission and ventilation losses
+- heating-period sums for heating, cooling, hot water, internal gains, lighting,
+  appliance gains, electricity demand, and solar gains
+- heating-day metrics (`HeatingDays`, `HeatingDegreeDays`, `RoomHeatingDegreeDays`)
+- annual and heating-period mean occupancy/appliance profile factors
+- annual and heating-period mean effective air exchange diagnostics
 
-### Arguments:
+## Input expectations
 
-- `path`: Path to the file containing building data type of `str`. (Required)
-- `ermi`: type of `str`. (Optional)
-- `gains_from_group_values`: type of `str`. (Optional)
-- `usage_from_norm`: type of `str`. (Optional)
-- `primary_energy_factor`: type of `str`. (Optional)
-- `weather_period`: type of `str`. (Optional)
-- `summary_only`: type of `bool`. (Optional)
+The input file must match the DIBS building schema, including the usual envelope,
+window, thermal, ventilation, and system parameters.
 
-### CSV File Format Requirements:
+Relevant window and ventilation fields include:
 
-- The CSV or Excel file must contain a specific number of columns.
-- The column names in the CSV or Excel file must match the attributes of the building object to be simulated.
+- `window_area_north`
+- `window_area_east`
+- `window_area_south`
+- `window_area_west`
+- `glass_solar_transmittance`
+- `glass_solar_shading_transmittance`
+- `ach_inf`
+- `ach_win`
+- `ach_vent`
+- `heat_recovery_efficiency`
 
-#### Example Building Object:
+## Branch-linked development
 
-Suppose we have a `Building` object with the following attributes:
+For the cross-repository feature work on heating-period diagnostics, `pyproject.toml`
+is pinned to:
 
-
-Corresponding CSV or Excel File Columns:
-To simulate this Building object, the CSV or Excel file must have the following columns:
-
-- `scr_gebaeude_id`: Building Screening-ID.
-- `plz`: Zipcode of building's location in Germany.
-- `hk_geb`: Usage type (main category)
-- `uk_geb`: Usage type (subcategory)
-- `max_occupancy`: Max. number of building occupants at any given time
-- `wall_area_og`: Area of all walls above ground in contact with the outside [m2]
-- `wall_area_ug`: Area of all walls below ground in contact with soil [m2] 
-- `window_area_north`: Area of the glazed surface in contact with the outside facing north [m2]
-- `window_area_east`: Area of the glazed surface in contact with the outside facing east [m2]
-- `window_area_south`: Area of the glazed surface in contact with the outside facing south [m2]
-- `window_area_west`: Area of the glazed surface in contact with the outside facing west [m2]
-- `roof_area`: Area of the roof in contact with the outside [m2]
-- `net_room_area`: Area of all floor areas from usable rooms including all floor plan levels of the building (Refers
-  to "Netto-Raumfläche", DIN 277-1:2016-01) [m2]
-- `energy_ref_area`: Energy reference area of the building [m2]
-- `base_area`: Area for the calculation of transmission heat losses to the soil. Also used to calculate the building's
-  volume. [m2]
-- `gross_base_area`: Gross base area of the building gross_base_area = base_area / 0.87 (currently unused)
-- `building_height`: Mean height of the building [m]
-- `net_volume`: Thermally conditioned net volum of building (air filled space within the building) (currently unused) [m3]
-- `gross_volume`: Thermally conditioned gross volum of building (air filled space within the building) (currently unused) [m3]
-- `envelope_area`: Total area of building envelope (currently unused) [m2]
-- `lighting_load`: Lighting Load [W/m2]
-- `lighting_control`: Lux threshold at which the lights turn on [Lx]
-- `lighting_utilisation_factor`: A factor that determines how much natural solar lumminace is effectively utilised in
-  the space
-- `lighting_maintenance_factor`: A factor based on how dirty the windows area
-- `aw_construction`: Exterior wall construction type (currently unused)
-- `shading_device`: Type of shading device for transparent surfaces including windows (currently ununsed)
-- `shading_solar_transmittance`: Shading transmittance reduction factor for solar gains (currently ununsed)
-- `glass_solar_transmittance`: Solar radiation passing through the window (g-value)
-- `glass_solar_shading_transmittance`: Solar radiation passing through the window with active shading devices
-- `glass_light_transmittance`: Solar illuminance passing through the window
-- `u_windows`: U value of glazed and/or transparent surfaces [W/m2K]
-- `u_walls`: U value of external walls  [W/m2K]
-- `u_roof`: U value of the roof [W/m2K]
-- `u_base`: U value of the floor [W/m2K]
-- `temp_adj_base`: Temperature adjustment factor for the floor
-- `temp_adj_walls_ug`: Temperature adjustment factor for walls below ground
-- `ach_inf`: Air changes per hour through infiltration [Air Changes Per Hour]
-- `ach_win`: Air changes per hour through opened windows [Air Changes Per Hour]
-- `ach_vent`: Air changes per hour through ventilation [Air Changes Per Hour]
-- `heat_recovery_efficiency`: Efficiency of heat recovery
-- `thermal_capacitance`: Thermal capacitance of the building [J/m2K]
-- `t_set_heating`: Thermal heating set point [C]
-- `t_start`: Indoor air temperatur for first time step of the simulation [C]
-- `t_set_cooling`: Thermal cooling set point [C]
-- `night_flushing_flow`: Air changes per hour through night flushing [Air Changes Per Hour]
-- `max_heating_energy_per_floor_area`: Maximum heating load per floor area. Set to no.inf for unrestricted heating [C]
-- `max_cooling_energy_per_floor_area`: Maximum cooling load. Set to -np.inf for unrestricted cooling [C]
-- `heating_supply_system`: The type of heating system
-- `cooling_supply_system`: The type of cooling system
-- `heating_emission_system`: How the heat is distributed/emitted to the building
-- `cooling_emission_system`: How the cooling energy is distributed/emitted to the building
-- `dhw_system`: Type of hot water generator
-
-### Example of Execution:
-
-To simulate using default values for the optional arguments:
-
-```bash
-<<<<<<< HEAD
-dibs-cli simulate-one-building /path/to/file.csv
-=======
-dibs-cli simulate-one-building /path/to/file.csv/or/to/file.csv
->>>>>>> 2bb6869151fc32af8b98fa652c2fa4af201341f2
-```
-
-To simulate using custom values for all arguments:
-
-```bash
-<<<<<<< HEAD
-dibs-cli simulate-one-building /path/to/file.csv --profile_from_norm din18599 --gains_from_group_values mid --usage_from_norm sia2024 --weather_period 2007-2021
-=======
-dibs-cli simulate-one-building /path/to/file.csv/or/to/file.csv --profile_from_norm din18599 --gains_from_group_values mid --usage_from_norm sia2024 --weather_period 2007-2021
->>>>>>> 2bb6869151fc32af8b98fa652c2fa4af201341f2
-```
-
-The below command will use the default values for `--profile_from_norm`, `--usage_from_norm`, and `--weather_period`, while using
-the provided value for `--gains_from_group_values`.
-
-```bash
-<<<<<<< HEAD
-dibs-cli simulate-one-building /path/to/file.csv --gains_from_group_values mid
-=======
-python dibs-cli simulate-one-building /path/to/file.csv/or/to/file.csv --gains_from_group_values mid
->>>>>>> 2bb6869151fc32af8b98fa652c2fa4af201341f2
-```
-
-### Calling for Help
-
-To get help on the available commands and options, use the `--help` flag. For example:
-
-```bash
-dibs-cli --help
-```
-
-This will display an overview of the available commands and their options.
+- `dibs_computing_core@heating-period-diagnostics`
+- `dibs_datasource_csv@heating-period-diagnostics`
 
 ## License
 
-This program is licensed under the [MIT License](LICENSE). See the license file for more information.
+This project is licensed under the [MIT License](LICENSE).

@@ -11,9 +11,12 @@ from dibs_computing_core.iso_simulator.dibs.dibs import DIBS
 from .dibscli_utils.validate_inputs import (
     check_the_file_given_by_the_user,
 )
-from .dibscli_utils.save_results import convert_result_of_all_hours_to_dataframe, convert_end_result_to_dataframe, \
-    save_results_of_all_buildings_hours_in_csv_parallel_using_thread_executor, \
-    build_all_results_of_all_buildings_to_dataframe
+from .dibscli_utils.save_results import (
+    build_all_results_of_all_buildings_to_dataframe,
+    convert_end_result_to_dataframe,
+    save_buildings_all_hours_results_to_excel,
+    save_results_of_all_buildings_hours_in_csv_parallel_using_thread_executor,
+)
 from .dibscli_utils.validate_inputs import create_result_table, validate_weather_period, validate_usage_from_norm, \
     validate_profile_from_norm, validate_gains_from_group_values, validate_summary_only, validate_primary_energy_factor
 from tqdm import tqdm
@@ -64,13 +67,16 @@ def simulate_one_building(
     with tqdm(total=1, desc="Writing Excel", colour='red') as pbar:
         start_time = time.time()
         if not summary_only:
-            all_hours_result_dataframe = convert_result_of_all_hours_to_dataframe(result_of_all_hours,
-                                                                                  datasource_csv.building,
-                                                                                  0)
+            save_buildings_all_hours_results_to_excel(
+                result_of_all_hours,
+                folder_path,
+                datasource_csv.building,
+                0,
+            )
         build_file_name = f"{datasource_csv.building.scr_gebaeude_id}.csv"
-        if not summary_only:
-            all_hours_result_dataframe.to_csv(f"{folder_path}/{build_file_name}")
-
+        heating_period_file_name = (
+            f"{datasource_csv.building.scr_gebaeude_id}_heating_period.csv"
+        )
         end_time = time.time()
         saving_all_hours_result_time = end_time - start_time
         pbar.update(1)
@@ -85,12 +91,17 @@ def simulate_one_building(
 
     if not summary_only:
         console.print(
-            f"Time to save [bold yellow]results of the 8760 hours[/bold yellow] in [bold yellow]Excel[/bold yellow] file is : [bold magenta]{saving_all_hours_result_time}s[/bold magenta]"
+            f"Time to save [bold yellow]hourly results[/bold yellow] in [bold yellow]csv[/bold yellow] files is : [bold magenta]{saving_all_hours_result_time}s[/bold magenta]"
         )
 
-    console.print(
-        f"The files contain the results are [bold yellow]{build_file_name}[/bold yellow] and [bold yellow]annualResults_summary.xlsx[/bold yellow] and saved in this folder [bold magenta]{folder_path}[/bold magenta]"
-    )
+    if summary_only:
+        console.print(
+            f"The summary result file is [bold yellow]annualResults_summary.xlsx[/bold yellow] and it is saved in [bold magenta]{folder_path}[/bold magenta]"
+        )
+    else:
+        console.print(
+            f"The result files are [bold yellow]{build_file_name}[/bold yellow], [bold yellow]{heating_period_file_name}[/bold yellow] and [bold yellow]annualResults_summary.xlsx[/bold yellow] and they are saved in [bold magenta]{folder_path}[/bold magenta]"
+        )
 
     create_result_table(summary_result_dataframe)
 
@@ -153,7 +164,7 @@ def simulate_all_building(
     )
     if not summary_only:
         console.print(
-            f"Time to save hourly results  is: [bold gold]{time_to_save_hourly_results}s[/bold gold]"
+            f"Time to save hourly results (full year and heating period) is: [bold gold]{time_to_save_hourly_results}s[/bold gold]"
         )
 
 
@@ -233,7 +244,7 @@ def simulate_buildings_with_batches(
         )
         if not summary_only:
             console.print(
-                f"Time to save hourly results  is: [bold gold]{time_to_save_hourly_results}s[/bold gold]"
+                f"Time to save hourly results (full year and heating period) is: [bold gold]{time_to_save_hourly_results}s[/bold gold]"
             )
     # print("Merging all batch Excel files into one...")
     #
