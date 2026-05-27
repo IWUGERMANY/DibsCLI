@@ -31,6 +31,7 @@ For each run, the CLI writes:
 The summary workbook now includes:
 
 - transmission and ventilation losses
+- thermal-bridge surcharge traceability and losses
 - heating-period sums for heating, cooling, hot water, internal gains, lighting,
   appliance gains, electricity demand, and solar gains
 - heating-day metrics (`HeatingDays`, `HeatingDegreeDays`, `RoomHeatingDegreeDays`)
@@ -49,6 +50,7 @@ diagnosis:
 - `GlobalHorizontalRadiation`
 - `DirectNormalRadiation`
 - `DiffuseHorizontalRadiation`
+- `ThermalBridgingLoss`
 
 ## Input expectations
 
@@ -67,6 +69,13 @@ Relevant window and ventilation fields include:
 - `ach_win`
 - `ach_vent`
 - `heat_recovery_efficiency`
+- `delta_u_thermal_bridging`
+
+`delta_u_thermal_bridging` is interpreted as a constant surcharge in `W/m2K`.
+The CLI forwards it to the computing core, which converts it to
+`ThermalBridgeConductance = envelope_area * delta_u_thermal_bridging` and uses
+it in every simulated hour. If the column is omitted, the surcharge defaults to
+`0.0`.
 
 ## Branch-linked development
 
