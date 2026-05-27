@@ -34,8 +34,21 @@ The summary workbook now includes:
 - heating-period sums for heating, cooling, hot water, internal gains, lighting,
   appliance gains, electricity demand, and solar gains
 - heating-day metrics (`HeatingDays`, `HeatingDegreeDays`, `RoomHeatingDegreeDays`)
+- annual and heating-period raw weather diagnostics for:
+  - global horizontal radiation
+  - direct normal radiation
+  - diffuse horizontal radiation
+  - dry-bulb / outside temperature means
 - annual and heating-period mean occupancy/appliance profile factors
 - annual and heating-period mean effective air exchange diagnostics
+
+The hourly csv exports now also include the raw weather input series used for
+diagnosis:
+
+- `DrybulbTemperature`
+- `GlobalHorizontalRadiation`
+- `DirectNormalRadiation`
+- `DiffuseHorizontalRadiation`
 
 ## Input expectations
 
